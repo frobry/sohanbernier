@@ -1,0 +1,1086 @@
+Voici le code HTML/CSS/JS complet pour le portfolio de Sohan Bernier, reprenant exactement la structure et le style de votre code original avec tout le nouveau contenu demandé.
+
+```html
+<!doctype html>
+<html lang="fr" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sohan Bernier | Étudiant en informatique</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17543583656"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-17543583656');
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html, 
+    body { 
+      height: 100%; margin: 0; 
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .bg-custom {
+      background-color: #fff; 
+    }
+
+    .container-full {
+      max-width: calc(100% - 200px);
+      margin-left: 100px;
+      margin-right: 100px;
+    }
+
+    @media (max-width: 1024px) {
+      .container-full {
+        max-width: calc(100% - 80px);
+        margin-left: 40px;
+        margin-right: 40px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container-full {
+        max-width: calc(100% - 48px);
+        margin-left: 24px;
+        margin-right: 24px;
+      }
+    }
+
+    header {
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .tab-content {
+      opacity: 0;
+      display: none;
+      transition: opacity 0.3s ease;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .tab-content.visible {
+      opacity: 1;
+    }
+
+    .form-field {
+      width: 100%;
+      border: 1px solid #d1d1d1;
+      padding: 12px 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      background: #fafafa;
+    }
+    .form-field:focus { border-color: #000; background: #fff; }
+
+    .submit-btn {
+      background: #000;
+      color: #fff;
+      padding: 14px 48px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.2s;
+    }
+    .submit-btn:hover { opacity: 0.7; }
+    .submit-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .skill-block { border-left: 2px solid #000; padding-left: 24px; }
+
+    .star-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 10px;
+      vertical-align: middle;
+      transform: translateY(-1px);
+    }
+    .star-icon svg {
+      width: 16px;
+      height: 14px;
+      fill: #f5b042;
+      stroke: #f5b042;
+    }
+
+    .serif-title {
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 0.05em;
+    }
+
+    .media-container {
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+      overflow: hidden;
+      border-radius: 0;
+    }
+    .media-container:hover { opacity: 0.9; }
+    
+    .media-container img,
+    .media-container video {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      pointer-events: none;
+    }
+
+    .portrait-container {
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+      max-width: 320px;
+      width: 100%;
+      border-radius: 0;
+    }
+    .portrait-container:hover { opacity: 0.9; }
+    
+    .portrait-container img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      pointer-events: none;
+    }
+
+    .quote-btn {
+      display: inline-block;
+      background: #000;
+      color: #fff;
+      padding: 12px 32px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.2s;
+      margin-top: 16px;
+    }
+    .quote-btn:hover { opacity: 0.7; }
+
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .lightbox.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox-content img,
+    .lightbox-content video {
+      max-width: 90vw;
+      max-height: 90vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      transition: opacity 0.2s ease;
+    }
+    .lightbox-close:hover { opacity: 0.6; }
+    .lightbox-close i {
+      width: 32px;
+      height: 32px;
+      color: #fff;
+    }
+    @media (max-width: 768px) {
+      .lightbox-close {
+        top: -48px;
+        right: 0;
+      }
+      .lightbox-close i {
+        width: 28px;
+        height: 28px;
+      }
+    }
+
+    .toast-msg {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #000;
+      color: #fff;
+      padding: 14px 32px;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 100;
+      pointer-events: none;
+    }
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .in-progress-badge {
+      display: inline-block;
+      font-size: 11px;
+      color: #666;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      margin-left: 8px;
+    }
+
+    .burger-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      line-height: 1;
+    }
+    .burger-btn i {
+      width: 28px;
+      height: 28px;
+      color: #000;
+      display: block;
+    }
+
+    /* MENU OVERLAY style ZARA - 3 COLONNES AVEC ANIMATION WINDOWS 8 */
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #faf7f2;
+      z-index: 1000;
+      display: none;
+      overflow-y: auto;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .menu-overlay.open {
+      display: block;
+      opacity: 1;
+    }
+    .menu-inner {
+      width: 100%;
+      min-height: 100%;
+      padding: 0;
+    }
+    /* Header fixe dans le menu */
+    .menu-header {
+      position: sticky;
+      top: 0;
+      background: #faf7f2;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 60px 0 40px 0;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 768px) {
+      .menu-header {
+        padding: 32px 0 24px 0;
+      }
+    }
+    .menu-header-left {
+      overflow: hidden;
+      padding-left: 0px;
+    }
+    .menu-header-left h1 {
+      font-size: 8rem;
+      font-weight: 400;
+      letter-spacing: -0.12em;
+      font-family: 'Playfair Display', serif;
+      margin: 0;
+      line-height: 0.85;
+      transform: translateX(-12px);
+    }
+    .menu-header-right {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .menu-header-right button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+    .menu-header-right button i {
+      width: 28px;
+      height: 28px;
+      color: #000;
+    }
+    .menu-grid {
+      display: flex;
+      gap: 60px;
+      padding-bottom: 60px;
+      transform: translateX(0);
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.3, 1);
+    }
+    .menu-overlay.open .menu-grid {
+      animation: subtleShift 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+    }
+    @keyframes subtleShift {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-8px); }
+    }
+    .menu-col-1,
+    .menu-col-2,
+    .menu-col-3-horizontal {
+      opacity: 0;
+      transform: scale(0.96) translateX(30px);
+      transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1), opacity 0.35s ease;
+    }
+    .menu-overlay.open .menu-col-1 {
+      opacity: 1;
+      transform: scale(1) translateX(0);
+      transition-delay: 0.05s;
+    }
+    .menu-overlay.open .menu-col-2 {
+      opacity: 1;
+      transform: scale(1) translateX(0);
+      transition-delay: 0.15s;
+    }
+    .menu-overlay.open .menu-col-3-horizontal {
+      opacity: 1;
+      transform: scale(1) translateX(0);
+      transition-delay: 0.25s;
+    }
+    /* Fermeture animation */
+    .menu-overlay:not(.open) .menu-col-1,
+    .menu-overlay:not(.open) .menu-col-2,
+    .menu-overlay:not(.open) .menu-col-3-horizontal,
+    .menu-overlay:not(.open) .menu-header {
+      transition: transform 0.2s ease, opacity 0.18s ease;
+      transform: scale(0.96) translateX(-20px);
+      opacity: 0;
+    }
+
+    /* COLONNES 1 et 2 : scroll vertical individuel */
+    .menu-col-1,
+    .menu-col-2 {
+      overflow-y: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      max-height: 70vh;
+    }
+    .menu-col-1::-webkit-scrollbar,
+    .menu-col-2::-webkit-scrollbar {
+      display: none;
+    }
+    .menu-col-1 {
+      flex: 0 0 280px;
+    }
+    .menu-col-2 {
+      flex: 0 0 320px;
+    }
+
+    /* COLONNE 3 : images horizontales avec scroll horizontal */
+    .menu-col-3-horizontal {
+      flex: 1;
+      min-width: 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: thin;
+    }
+    .menu-col-3-horizontal::-webkit-scrollbar {
+      height: 4px;
+    }
+    .menu-col-3-horizontal::-webkit-scrollbar-track {
+      background: #f0f0f0;
+    }
+    .menu-col-3-horizontal::-webkit-scrollbar-thumb {
+      background: #ccc;
+    }
+    .menu-images-horizontal {
+      display: inline-flex;
+      gap: 24px;
+      padding-bottom: 20px;
+    }
+    .menu-image-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 180px;
+      flex-shrink: 0;
+      opacity: 0;
+      transform: translateX(20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .menu-overlay.open .menu-image-item {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    /* Stagger animation pour les images */
+    .menu-overlay.open .menu-image-item:nth-child(1) { transition-delay: 0.3s; }
+    .menu-overlay.open .menu-image-item:nth-child(2) { transition-delay: 0.35s; }
+    .menu-overlay.open .menu-image-item:nth-child(3) { transition-delay: 0.4s; }
+    .menu-overlay.open .menu-image-item:nth-child(4) { transition-delay: 0.45s; }
+    .menu-overlay.open .menu-image-item:nth-child(5) { transition-delay: 0.5s; }
+    .menu-overlay.open .menu-image-item:nth-child(6) { transition-delay: 0.55s; }
+    .menu-image-item img,
+    .menu-image-item video {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      display: block;
+      cursor: pointer;
+    }
+    .menu-image-caption {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #999;
+      text-align: left;
+    }
+    .menu-section {
+      margin-bottom: 48px;
+    }
+    .menu-section-title {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 20px;
+    }
+    .menu-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .menu-link {
+      font-size: 1.5rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+      font-family: 'Playfair Display', serif;
+      line-height: 1.2;
+    }
+    .menu-link:hover {
+      opacity: 0.6;
+    }
+    .menu-sub-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 8px;
+      padding-left: 0;
+    }
+    .menu-sub-link {
+      font-size: 0.9rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+      font-family: 'DM Sans', sans-serif;
+      color: #333;
+    }
+    .menu-sub-link:hover {
+      opacity: 0.6;
+    }
+
+    /* Responsive: sur tablette, passage en colonne */
+    @media (max-width: 1200px) {
+      .menu-grid {
+        flex-direction: column;
+        gap: 48px;
+      }
+      .menu-col-1,
+      .menu-col-2,
+      .menu-col-3-horizontal {
+        flex: auto;
+        max-height: none;
+        overflow-y: visible;
+        overflow-x: visible;
+      }
+      .menu-images-horizontal {
+        flex-direction: column;
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .menu-image-item {
+        width: 100%;
+        max-width: 280px;
+      }
+      .menu-link {
+        font-size: 1.2rem;
+      }
+    }
+    
+    /* Mobile : padding sur le contenu du menu (12px de chaque côté) */
+    @media (max-width: 768px) {
+      .menu-inner {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+      .menu-header {
+        margin-left: -12px;
+        margin-right: -12px;
+        padding-left: 12px;
+        padding-right: 12px;
+        width: calc(100% + 24px);
+      }
+      .menu-header-left h1 {
+        font-size: 3.5rem;
+      }
+      .menu-link {
+        font-size: 1.1rem;
+      }
+    }
+
+    /* Header plus grand */
+    .header-spacing {
+      padding-top: 4rem;
+      padding-bottom: 1rem;
+    }
+    .header-title-margin {
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .header-spacing {
+        padding-top: 2rem;
+        padding-bottom: 1rem;
+      }
+      .header-title-margin {
+        margin-bottom: 1rem;
+      }
+    }
+
+    .footer-link {
+      color: #666;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .footer-link:hover {
+      color: #000;
+    }
+    .social-icon {
+      transition: opacity 0.2s ease;
+    }
+    .social-icon:hover {
+      opacity: 0.6;
+    }
+
+    @media (max-width: 768px) {
+      .hide-on-mobile {
+        display: none;
+      }
+    }
+
+    .accueil-text {
+      color: #555;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+    .accueil-text p {
+      margin-bottom: 1rem;
+    }
+    @media (max-width: 768px) {
+      .accueil-text {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body class="h-full bg-custom text-black">
+  <div id="app-wrapper" class="w-full h-full overflow-auto">
+   
+   <header class="w-full sticky top-0 bg-custom z-50">
+    <div class="container-full header-spacing">
+     <div class="flex items-center justify-between header-title-margin">
+      <div>
+       <h1 id="site-title" class="text-3xl font-bold tracking-widest uppercase serif-title" style="letter-spacing: 0.08em;">SOHAN BERNIER</h1>
+      </div>
+      <button class="burger-btn" id="burger-btn"><i data-lucide="menu"></i></button>
+     </div>
+    </div>
+   </header>
+
+   <!-- MENU OVERLAY style ZARA - 3 COLONNES -->
+   <div id="menu-overlay" class="menu-overlay">
+    <div class="container-full menu-inner">
+     <div class="menu-header">
+      <div class="menu-header-left">
+       <h1>BERNIER</h1>
+      </div>
+      <div class="menu-header-right">
+       <button class="menu-close" id="menu-close">
+        <i data-lucide="x"></i>
+       </button>
+      </div>
+     </div>
+     <div class="menu-grid">
+      <!-- COLONNE 1 -->
+      <div class="menu-col-1">
+       <div class="menu-section">
+        <div class="menu-section-title">NAVIGATION</div>
+        <div class="menu-links">
+         <span class="menu-link" data-tab="accueil">ACCUEIL</span>
+         <span class="menu-link" data-tab="parcours">PARCOURS</span>
+         <span class="menu-link" data-tab="competences">COMPÉTENCES</span>
+         <span class="menu-link" data-tab="realisations">RÉALISATIONS</span>
+         <span class="menu-link" data-tab="metiers">MÉTIERS VISÉS</span>
+         <span class="menu-link" data-tab="veille">VEILLE INFO</span>
+         <span class="menu-link" data-tab="cv">CV</span>
+         <span class="menu-link" data-tab="contact">CONTACT</span>
+        </div>
+       </div>
+      </div>
+
+      <!-- COLONNE 2 : compétences et technologies -->
+      <div class="menu-col-2">
+       <div class="menu-section">
+        <div class="menu-section-title">TECHNOLOGIES</div>
+        <div class="menu-sub-links">
+         <span class="menu-sub-link" data-tab="competences">C# / Java / Python</span>
+         <span class="menu-sub-link" data-tab="competences">PHP / JS / HTML/CSS</span>
+         <span class="menu-sub-link" data-tab="competences">MySQL / PostgreSQL / MongoDB</span>
+         <span class="menu-sub-link" data-tab="competences">UML / Merise / GitHub</span>
+         <span class="menu-sub-link" data-tab="competences">WordPress</span>
+        </div>
+       </div>
+       <div class="menu-section">
+        <div class="menu-section-title">PROJETS</div>
+        <div class="menu-sub-links">
+         <span class="menu-sub-link" data-tab="realisations">Application C# (gestion)</span>
+         <span class="menu-sub-link" data-tab="realisations">Développement web</span>
+         <span class="menu-sub-link" data-tab="realisations">Stage professionnel</span>
+        </div>
+       </div>
+      </div>
+
+      <!-- COLONNE 3 : IMAGES HORIZONTALES -->
+      <div class="menu-col-3-horizontal">
+       <div class="menu-images-horizontal">
+        <div class="menu-image-item">
+         <img src="https://placehold.co/400x600/2c3e50/white?text=Dev+C%23" alt="Développement C#" data-lightbox="https://placehold.co/400x600/2c3e50/white?text=Dev+C%23" data-type="image">
+         <div class="menu-image-caption">PROJET C#</div>
+        </div>
+        <div class="menu-image-item">
+         <img src="https://placehold.co/400x600/3498db/white?text=Web+Dev" alt="Développement web" data-lightbox="https://placehold.co/400x600/3498db/white?text=Web+Dev" data-type="image">
+         <div class="menu-image-caption">ATELIER WEB</div>
+        </div>
+        <div class="menu-image-item">
+         <img src="https://placehold.co/400x600/e67e22/white?text=Cybersecurite" alt="Cybersécurité" data-lightbox="https://placehold.co/400x600/e67e22/white?text=Cybersecurite" data-type="image">
+         <div class="menu-image-caption">VEILLE CYBER</div>
+        </div>
+        <div class="menu-image-item">
+         <img src="https://placehold.co/400x600/27ae60/white?text=IA" alt="Intelligence artificielle" data-lightbox="https://placehold.co/400x600/27ae60/white?text=IA" data-type="image">
+         <div class="menu-image-caption">VEILLE IA</div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+
+   <main class="container-full py-12">
+
+    <!-- ACCUEIL -->
+    <section id="tab-accueil" class="tab-content active visible">
+     <div class="flex flex-col md:flex-row gap-8 items-start mb-16">
+      <div class="flex-1">
+       <h2 class="text-xs uppercase tracking-widest mb-6 font-bold" style="letter-spacing: 0.15em;">ÉTUDIANT EN INFORMATIQUE</h2>
+       <div class="accueil-text">
+        <p><strong>Bernier Sohàn</strong><br><em>Développement d'applications</em></p>
+        <p>Actuellement étudiant en BTS Services Informatiques aux Organisations (SIO), option SLAM (Solutions Logicielles et Applications Métiers), je suis passionné par l'informatique et plus particulièrement par le développement d'applications.</p>
+        <p>Mon parcours a débuté en bac professionnel MELEC, que j'ai suivi pendant un an avant de me réorienter vers un bac professionnel Systèmes Numériques option A (alarmes et sécurité). Ce changement m'a permis de me rapprocher davantage du domaine qui m'attire réellement : les technologies numériques et informatiques.</p>
+        <p>Aujourd'hui, je souhaite développer un maximum de compétences en programmation, en développement web et en conception logicielle. Je suis encore en phase de découverte concernant mon futur métier, mais je suis particulièrement intéressé par des domaines comme la cybersécurité et l'intelligence artificielle.</p>
+       </div>
+      </div>
+      <div class="portrait-container" data-lightbox="https://placehold.co/600x800/2c3e50/white?text=Sohan+Bernier" data-type="image">
+       <img src="https://placehold.co/600x800/2c3e50/white?text=Sohan+Bernier" alt="Sohan Bernier" onerror="this.style.display='none'; this.parentElement.innerHTML='<i data-lucide=\'user\' style=\'width:48px; height:48px; color:#bbb;\'></i>'; lucide.createIcons();">
+      </div>
+     </div>
+
+     <div class="flex flex-col md:flex-row gap-8 items-start mb-16">
+      <div class="w-full md:w-1/2">
+       <div class="media-container" data-lightbox="https://placehold.co/800x600/3498db/white?text=Dev+Applications" data-type="image">
+        <img src="https://placehold.co/800x600/3498db/white?text=Dev+Applications" alt="Développement d'applications" onerror="this.style.display='none'; this.parentElement.innerHTML='<i data-lucide=\'code\' style=\'width:48px; height:48px; color:#bbb;\'></i>'; lucide.createIcons();">
+       </div>
+       <p class="text-xs text-center mt-2" style="color: #999;">Cliquez pour agrandir</p>
+      </div>
+      <div class="w-full md:w-1/2">
+       <div class="accueil-text">
+        <p><strong class="font-bold uppercase tracking-wide text-xs" style="letter-spacing: 0.1em;">Ma vision du développement</strong></p>
+        <p class="mt-2">Le développement d'applications est bien plus qu'écrire du code : c'est résoudre des problèmes concrets, comprendre les besoins des utilisateurs et créer des solutions innovantes.</p>
+        <p>Je m'intéresse particulièrement aux architectures logicielles robustes, aux bonnes pratiques de programmation (KISS, DRY, SOLID) et aux méthodes agiles.</p>
+        <p>La cybersécurité et l'intelligence artificielle sont des domaines qui me fascinent et vers lesquels je souhaite orienter ma carrière. Ces technologies transforment notre monde et offrent des perspectives incroyables.</p>
+        <button onclick="switchTab('competences')" class="quote-btn mt-4">VOIR MES COMPÉTENCES</button>
+       </div>
+      </div>
+     </div>
+    </section>
+
+    <!-- PARCOURS -->
+    <section id="tab-parcours" class="tab-content">
+     <h2 class="text-xs uppercase tracking-widest mb-10 font-bold" style="letter-spacing: 0.15em;">MON PARCOURS</h2>
+     <div class="space-y-12">
+      <div class="skill-block">
+       <h3 class="text-sm font-bold uppercase tracking-widest mb-3">PARCOURS SCOLAIRE</h3>
+       <ul class="text-sm leading-relaxed space-y-3 ml-4" style="color: #555;">
+        <li><strong>2022 – 2023</strong> : Bac professionnel MELEC (1 an)</li>
+        <li><strong>2023 – 2025</strong> : Bac professionnel Systèmes Numériques option A (Alarme et Sécurité)</li>
+        <li><strong>2025 – 2027</strong> : BTS SIO option SLAM (en cours)</li>
+       </ul>
+      </div>
+      <div class="skill-block">
+       <h3 class="text-sm font-bold uppercase tracking-widest mb-3">EXPÉRIENCES PROFESSIONNELLES</h3>
+       <p class="text-sm leading-relaxed" style="color: #555;">J'ai réalisé plusieurs stages au cours de ma formation. Bien qu'ils ne soient pas directement liés à l'informatique, ils m'ont permis de développer des compétences professionnelles importantes telles que l'autonomie, le travail en équipe et le sens des responsabilités.</p>
+      </div>
+      <div class="media-container" style="max-width: 500px;" data-lightbox="https://placehold.co/800x500/2c3e50/white?text=Experiences" data-type="image">
+       <img src="https://placehold.co/800x500/2c3e50/white?text=Experiences" alt="Expériences" onerror="this.style.display='none'; this.parentElement.innerHTML='<i data-lucide=\'briefcase\' style=\'width:48px; height:48px; color:#bbb;\'></i>'; lucide.createIcons();">
+      </div>
+     </div>
+    </section>
+
+    <!-- COMPÉTENCES -->
+    <section id="tab-competences" class="tab-content">
+     <h2 class="text-xs uppercase tracking-widest mb-10 font-bold" style="letter-spacing: 0.15em;">COMPÉTENCES EN COURS D'ACQUISITION</h2>
+     <div class="space-y-10">
+      <div class="skill-block">
+       <h3 class="text-sm font-bold uppercase tracking-widest mb-3">LANGAGES DE PROGRAMMATION</h3>
+       <div class="flex flex-wrap gap-2">
+        <span class="px-3 py-1 bg-gray-100 text-xs">C#</span>
+        <span class="px-3 py-1 bg-gray-100 text-xs">Java</span>
+        <span class="px-3 py-1 bg-gray-100 text-xs">Python</span>
+        <span class="px-3 py-1 bg-gray-100 text-xs">PHP</span>
+        <span class="px-3 py-1 bg-gray-100 text-xs">HTML / CSS / JavaScript</span>
+       </div>
+      </div>
+      <div class="skill-block">
+       <h3 class="text-sm font-bold uppercase tracking-widest mb-3">BASES DE DONNÉES</h3>
+       <div class="flex flex-wrap gap-2">
+        <span class="px-3 py-1 bg-gray-100 text-xs">MySQL</span>
+        <span class="px-3 py-1 bg-gray-100 text-xs">PostgreSQL</span>
+        <span class="px-3 py-1 bg-gray-100 text-xs">MongoDB</span>
+       </div>
+      </div>
+      <div class="skill-block">
+       <h3 class="text-sm font-bold uppercase tracking-widest mb-3">OUTILS ET MÉTHODES</h3>
+       <div class="flex flex-wrap gap-2">
+        <span class="px-3 py-1 bg-gray-100 text-xs">UML / Merise</span>
+        <span class="px-3 py-1 bg-gray-100 text-xs">GitHub</span>
+        <span class="px-3 py-1 bg-gray-100 text-xs">Tests logiciels</span>
+        <span class="px-3 py-1 bg-gray-100 text-xs">KISS / DRY / SOLID</span>
+       </div>
+      </div>
+      <div class="skill-block">
+       <h3 class="text-sm font-bold uppercase tracking-widest mb-3">CMS</h3>
+       <div class="flex flex-wrap gap-2">
+        <span class="px-3 py-1 bg-gray-100 text-xs">WordPress</span>
+       </div>
+      </div>
+     </div>
+    </section>
+
+    <!-- RÉALISATIONS -->
+    <section id="tab-realisations" class="tab-content">
+     <h2 class="text-xs uppercase tracking-widest mb-10 font-bold" style="letter-spacing: 0.15em;">MES PROJETS</h2>
+     <div class="space-y-12">
+      <div class="skill-block">
+       <h3 class="text-sm font-bold uppercase tracking-widest mb-2">Projet C# : Application de gestion <span class="in-progress-badge">EN COURS</span></h3>
+       <p class="text-sm leading-relaxed" style="color: #555;">Développement d'une application de gestion en C# pour la gestion de données et d'interfaces utilisateur.</p>
+      </div>
+      <div class="skill-block">
+       <h3 class="text-sm font-bold uppercase tracking-widest mb-2">Atelier 2 : Développement web</h3>
+       <p class="text-sm leading-relaxed" style="color: #555;">Création de sites web dynamiques avec PHP, MySQL, HTML/CSS et JavaScript.</p>
+      </div>
+      <div class="skill-block">
+       <h3 class="text-sm font-bold uppercase tracking-widest mb-2">Stage : Expérience professionnelle</h3>
+       <p class="text-sm leading-relaxed" style="color: #555;">Mise en pratique des compétences en entreprise, découverte du monde professionnel.</p>
+      </div>
+     </div>
+    </section>
+
+    <!-- MÉTIERS VISÉS -->
+    <section id="tab-metiers" class="tab-content">
+     <h2 class="text-xs uppercase tracking-widest mb-10 font-bold" style="letter-spacing: 0.15em;">MÉTIERS ENVISAGÉS</h2>
+     <div class="skill-block space-y-4">
+      <p class="text-sm leading-relaxed" style="color: #555;">Je m'intéresse à plusieurs métiers dans le domaine de l'informatique :</p>
+      <ul class="text-sm leading-relaxed space-y-2 ml-4" style="color: #555;">
+        <li>• Développeur web</li>
+        <li>• Développeur d'applications</li>
+        <li>• Développeur logiciel</li>
+      </ul>
+      <p class="text-sm leading-relaxed mt-4" style="color: #555;">Je reste également ouvert à d'autres domaines comme la cybersécurité et l'intelligence artificielle, qui sont des secteurs en forte évolution.</p>
+     </div>
+    </section>
+
+    <!-- VEILLE INFORMATIONNELLE -->
+    <section id="tab-veille" class="tab-content">
+     <h2 class="text-xs uppercase tracking-widest mb-10 font-bold" style="letter-spacing: 0.15em;">VEILLE TECHNOLOGIQUE</h2>
+     <div class="space-y-10">
+      <div class="skill-block">
+       <h3 class="text-sm font-bold uppercase tracking-widest mb-3">OUTILS UTILISÉS</h3>
+       <div class="flex flex-wrap gap-2">
+        <span class="px-3 py-1 bg-gray-100 text-xs">Google Alerts</span>
+        <span class="px-3 py-1 bg-gray-100 text-xs">Sites spécialisés informatique</span>
+        <span class="px-3 py-1 bg-gray-100 text-xs">YouTube (chaînes technologiques)</span>
+       </div>
+      </div>
+      <div class="skill-block">
+       <h3 class="text-sm font-bold uppercase tracking-widest mb-3">🔐 CYBERSÉCURITÉ</h3>
+       <p class="text-sm leading-relaxed" style="color: #555;">La cybersécurité consiste à protéger les systèmes informatiques, les réseaux et les données contre les attaques. J'ai choisi ce thème car il est aujourd'hui essentiel dans le monde numérique et offre de nombreuses opportunités professionnelles.</p>
+      </div>
+      <div class="skill-block">
+       <h3 class="text-sm font-bold uppercase tracking-widest mb-3">🤖 INTELLIGENCE ARTIFICIELLE</h3>
+       <p class="text-sm leading-relaxed" style="color: #555;">L'intelligence artificielle permet de créer des systèmes capables d'apprendre et de prendre des décisions. Ce domaine m'intéresse particulièrement car il transforme profondément les métiers de l'informatique et représente l'avenir de nombreuses technologies.</p>
+      </div>
+     </div>
+    </section>
+
+    <!-- CV -->
+    <section id="tab-cv" class="tab-content">
+     <h2 class="text-xs uppercase tracking-widest mb-10 font-bold" style="letter-spacing: 0.15em;">MON CV</h2>
+     <div class="skill-block">
+      <p class="text-sm leading-relaxed mb-6" style="color: #555;">Vous pouvez télécharger mon CV au format PDF en cliquant sur le lien ci-dessous :</p>
+      <a href="#" class="quote-btn inline-block" id="download-cv-btn">TÉLÉCHARGER MON CV (PDF)</a>
+     </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="tab-contact" class="tab-content">
+     <h2 class="text-xs uppercase tracking-widest mb-10 font-bold" style="letter-spacing: 0.15em;">ME CONTACTER</h2>
+     <div class="flex flex-col md:flex-row gap-12">
+      <form id="contact-form" class="flex-1 space-y-5">
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div>
+         <label for="prenom" class="text-xs uppercase tracking-widest font-bold block mb-2">Prénom</label>
+         <input type="text" id="prenom" name="prenom" class="form-field" placeholder="Votre prénom" required>
+        </div>
+        <div>
+         <label for="nom" class="text-xs uppercase tracking-widest font-bold block mb-2">Nom</label>
+         <input type="text" id="nom" name="nom" class="form-field" placeholder="Votre nom" required>
+        </div>
+       </div>
+       <div>
+        <label for="email" class="text-xs uppercase tracking-widest font-bold block mb-2">Email</label>
+        <input type="email" id="email" name="email" class="form-field" placeholder="votre@email.com" required>
+       </div>
+       <div>
+        <label for="sujet" class="text-xs uppercase tracking-widest font-bold block mb-2">Sujet</label>
+        <input type="text" id="sujet" name="sujet" class="form-field" placeholder="L'objet de votre message">
+       </div>
+       <div>
+        <label for="message" class="text-xs uppercase tracking-widest font-bold block mb-2">Message</label>
+        <textarea id="message" name="message" class="form-field" rows="5" placeholder="Votre message... N'hésitez pas à me contacter pour toute demande d'information ou opportunité de stage." required></textarea>
+       </div>
+       <button type="submit" class="submit-btn" id="submit-btn">ENVOYER</button>
+      </form>
+      <div class="md:w-80 space-y-6">
+       <div>
+        <p class="text-xs uppercase tracking-widest font-bold mb-2">Email</p>
+        <div class="flex items-center gap-2">
+         <i data-lucide="mail" style="width: 16px; height: 16px; color: #666;"></i>
+         <p id="contact-email-display" class="text-sm" style="color: #444;">sohan.bernier@example.com</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+   </main>
+
+   <!-- FOOTER -->
+   <footer class="container-full py-12 mt-8" style="border-top: 1px solid #e5e5e5;">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+     <div>
+      <h3 class="text-sm font-bold uppercase tracking-widest mb-4 serif-title">SOHAN BERNIER</h3>
+      <p class="text-xs" style="color: #999;">ÉTUDIANT EN INFORMATIQUE</p>
+     </div>
+     <div>
+      <h3 class="text-xs font-bold uppercase tracking-widest mb-4">NAVIGATION</h3>
+      <ul class="space-y-2">
+       <li><a href="#" class="footer-link text-xs" data-tab-link="accueil">ACCUEIL</a></li>
+       <li><a href="#" class="footer-link text-xs" data-tab-link="parcours">PARCOURS</a></li>
+       <li><a href="#" class="footer-link text-xs" data-tab-link="competences">COMPÉTENCES</a></li>
+       <li><a href="#" class="footer-link text-xs" data-tab-link="realisations">RÉALISATIONS</a></li>
+       <li><a href="#" class="footer-link text-xs" data-tab-link="metiers">MÉTIERS VISÉS</a></li>
+       <li><a href="#" class="footer-link text-xs" data-tab-link="veille">VEILLE INFO</a></li>
+       <li><a href="#" class="footer-link text-xs" data-tab-link="cv">CV</a></li>
+       <li><a href="#" class="footer-link text-xs" data-tab-link="contact">CONTACT</a></li>
+      </ul>
+     </div>
+     <div>
+      <h3 class="text-xs font-bold uppercase tracking-widest mb-4">CONTACT</h3>
+      <div class="flex items-center gap-2 mb-4">
+       <i data-lucide="mail" style="width: 16px; height: 16px; color: #666;"></i>
+       <p class="text-xs" style="color: #666;">sohan.bernier@example.com</p>
+      </div>
+     </div>
+    </div>
+    <div class="mt-8 pt-4 border-t border-gray-100">
+     <p class="text-xs uppercase tracking-widest" style="color: #999;">© 2026 Sohan Bernier — Tous droits réservés</p>
+    </div>
+   </footer>
+  </div>
+
+  <div id="lightbox" class="lightbox">
+   <div class="lightbox-content">
+    <button class="lightbox-close" id="lightbox-close"><i data-lucide="x"></i></button>
+   </div>
+  </div>
+
+  <div id="toast" class="toast-msg"></div>
+
+  <script>
+    const WEB3FORMS_KEY = "46d287e2-b83d-4818-989b-91ef8d2f3b5a";
+    
+    const navLinks = document.querySelectorAll('[data-tab], [data-tab-link], .menu-link, .menu-sub-link');
+    let currentTab = 'accueil';
+    let isTransitioning = false;
+
+    function switchTab(tabName) {
+      window.location.hash = tabName;
+      if (tabName === currentTab || isTransitioning) return;
+      isTransitioning = true;
+      const menuOverlay = document.getElementById('menu-overlay');
+      if (menuOverlay.classList.contains('open')) menuOverlay.classList.remove('open');
+      const currentEl = document.getElementById('tab-' + currentTab);
+      currentEl.classList.remove('visible');
+      setTimeout(() => {
+        currentEl.classList.remove('active');
+        const newEl = document.getElementById('tab-' + tabName);
+        newEl.classList.add('active');
+        void newEl.offsetWidth;
+        requestAnimationFrame(() => {
+          newEl.classList.add('visible');
+          currentTab = tabName;
+          isTransitioning = false;
+          lucide.createIcons();
+          document.getElementById('app-wrapper').scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }, 300);
+    }
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const tabName = link.getAttribute('data-tab') || link.getAttribute('data-tab-link');
+        if (tabName) switchTab(tabName);
+      });
+    });
+
+    const burgerBtn = document.getElementById('burger-btn');
+    const menuOverlay = document.getElementById('menu-overlay');
+    const menuClose = document.getElementById('menu-close');
+    burgerBtn.addEventListener('click', () => menuOverlay.classList.add('open'));
+    menuClose.addEventListener('click', () => menuOverlay.classList.remove('open'));
+    menuOverlay.addEventListener('click', (e) => { if (e.target === menuOverlay) menuOverlay.classList.remove('open'); });
+
+    function showToast(msg, isError = false) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.background = isError ? '#aa2e2e' : '#000';
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+        toast.style.background = '#000';
+      }, 4000);
+    }
+
+    const contactForm = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('submit-btn');
+    contactForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = "ENVOI EN COURS...";
+      const formData = new FormData(this);
+      formData.append('access_key', WEB3FORMS_KEY);
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
+        const result = await response.json();
+        if (result.success) { showToast('✅ Message envoyé avec succès !'); contactForm.reset(); } 
+        else { showToast('❌ Erreur : ' + (result.message || 'Veuillez réessayer'), true); }
+      } catch (error) { showToast('❌ Erreur réseau.', true); } 
+      finally { submitBtn.disabled = false; submitBtn.textContent = "ENVOYER"; }
+    });
+
+    document.getElementById('download-cv-btn')?.addEventListener('click', (e) => { e.preventDefault(); showToast('📄 CV téléchargé (démo)'); });
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxContent = document.querySelector('.lightbox-content');
+    let currentMedia = null;
+    function openLightbox(src, type) {
+      if (currentMedia) currentMedia.remove();
+      const media = type === 'video' ? document.createElement('video') : document.createElement('img');
+      if (type === 'video') { media.src = src; media.controls = true; media.autoplay = true; } 
+      else { media.src = src; media.alt = 'Agrandissement'; }
+      media.style.maxWidth = '90vw'; media.style.maxHeight = '90vh';
+      currentMedia = media;
+      const closeBtn = document.querySelector('.lightbox-close');
+      lightboxContent.insertBefore(currentMedia, closeBtn);
+      lightbox.classList.add('active');
+    }
+    function closeLightbox() { lightbox.classList.remove('active'); if (currentMedia) { if (currentMedia.tagName === 'VIDEO') currentMedia.pause(); currentMedia.remove(); currentMedia = null; } }
+    document.querySelectorAll('[data-lightbox]').forEach(el => { el.addEventListener('click', (e) => { e.stopPropagation(); openLightbox(el.getAttribute('data-lightbox'), el.getAttribute('data-type') || 'image'); }); });
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox(); });
+
+    function loadTabFromHash() {
+      const hash = window.location.hash.substring(1);
+      const validTabs = ['accueil', 'parcours', 'competences', 'realisations', 'metiers', 'veille', 'cv', 'contact'];
+      if (hash && validTabs.includes(hash)) switchTab(hash);
+      else if (currentTab !== 'accueil') switchTab('accueil');
+    }
+    window.addEventListener('hashchange', () => { const hash = window.location.hash.substring(1); switchTab(hash || 'accueil'); });
+    loadTabFromHash();
+    lucide.createIcons();
+  </script>
+</body>
+</html>
+```
